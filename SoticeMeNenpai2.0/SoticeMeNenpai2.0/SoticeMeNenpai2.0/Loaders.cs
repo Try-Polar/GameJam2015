@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace SoticeMeNenpai
 {
-    enum fileType
+    public enum fileType
     {
         Texture2D,Song,SoundEffect,SpriteFont
     }
@@ -26,13 +26,16 @@ namespace SoticeMeNenpai
     public interface ILoader
     {
         
-        public void load();
+        void load();
     }
 
     public class MasterLoader
     {
         List<LoadObject> Objects;
         TextureLoader Textures;
+        SongLoader Songs;
+        SoundEffectLoader SoundFX;
+        SpriteFontLoader SpriteFonts;
         public MasterLoader(){
             Objects = new List<LoadObject>();
         }
@@ -40,6 +43,65 @@ namespace SoticeMeNenpai
         public MasterLoader(List<LoadObject> list)
         {
             Objects = list;
+        }
+
+        public void Add(LoadObject Object)
+        {
+            Objects.Add(Object);
+        }
+
+        public void Add(List<LoadObject> Objs)
+        {
+            foreach (LoadObject obj in Objs)
+            {
+                Objects.Add(obj);
+            }
+        }
+
+        public void Add(String InternalName, String FileName, fileType FileType)
+        {
+            LoadObject temp;
+            temp.FileName = FileName;
+            temp.FileType = FileType;
+            temp.InternalName = InternalName;
+            Objects.Add(temp);
+        }
+
+        public void load()
+        {
+            foreach (LoadObject obj in Objects)
+            {
+                switch (obj.FileType)
+                {
+                    case fileType.Texture2D:
+                        Textures.Add(obj);
+                        break;
+                    case fileType.Song:
+                        Songs.Add(obj);
+                        break;
+                    case fileType.SoundEffect:
+                        SoundFX.Add(obj);
+                        break;
+                    case fileType.SpriteFont:
+                        SpriteFonts.Add(obj);
+                        break;
+                    default:
+                        //Skip, we dont have a loader for it
+                        break;
+                }
+            }
+            Textures.load();
+            Songs.load();
+            SoundFX.load();
+            SpriteFonts.load();
+        }
+
+        public void unload()
+        {
+            Textures.unload();
+            Songs.unload();
+            SoundFX.unload();
+            SpriteFonts.unload();
         }
     }
 
@@ -57,6 +119,24 @@ namespace SoticeMeNenpai
         public TextureLoader(String RootDirectory)
         {
             Texture2DManager = new ContentManager(Services, RootDirectory);
+        }
+
+        public void Add(LoadObject texture)
+        {
+            LoadedTextures.Add(texture.InternalName, Texture2DManager.Load<Texture2D>(texture.FileName));
+        }
+
+        public void Add(List<LoadObject> TexturesList)
+        {
+            foreach (LoadObject texture in TexturesList)
+            {
+                LoadedTextures.Add(texture.InternalName, Texture2DManager.Load<Texture2D>(texture.FileName));
+            }
+        }
+
+        public void Add(String InternalName, String FileName)
+        {
+            LoadedTextures.Add(InternalName, Texture2DManager.Load<Texture2D>(FileName));
         }
 
         public void load()
@@ -103,6 +183,24 @@ namespace SoticeMeNenpai
             }
         }
 
+        public void Add(LoadObject soundEffect)
+        {
+            LoadedSoundEffects.Add(soundEffect.InternalName, SoundEffectManager.Load<SoundEffect>(soundEffect.FileName));
+        }
+
+        public void Add(String InternalName, String FileName)
+        {
+            LoadedSoundEffects.Add(InternalName, SoundEffectManager.Load<SoundEffect>(FileName));
+        }
+
+        public void Add(List<LoadObject> SoundEffectsList)
+        {
+            foreach (LoadObject sfx in SoundEffectsList)
+            {
+                LoadedSoundEffects.Add(sfx.InternalName, SoundEffectManager.Load<SoundEffect>(sfx.FileName));
+            }
+        }
+
         public void unload()
         {
             SoundEffectManager.Unload();
@@ -118,7 +216,7 @@ namespace SoticeMeNenpai
     public class SongLoader : Microsoft.Xna.Framework.Game, ILoader
     {
         List<LoadObject> SongList;
-        Dictionary<String, Texture2D> LoadedSongs;
+        Dictionary<String, Song> LoadedSongs;
         ContentManager SongManager;
 
         public SongLoader()
@@ -135,7 +233,24 @@ namespace SoticeMeNenpai
         {
             foreach (LoadObject song in SongList)
             {
-                LoadedSongs.Add(song.InternalName, SongManager.Load<Texture2D>(song.FileName));
+                LoadedSongs.Add(song.InternalName, SongManager.Load<Song>(song.FileName));
+            }
+        }
+
+        public void Add(LoadObject song)
+        {
+            LoadedSongs.Add(song.InternalName, SongManager.Load<Song>(song.FileName));
+        }
+
+        public void Add(String InternalName, String FileName)
+        {
+            LoadedSongs.Add(InternalName, SongManager.Load<Song>(FileName));
+        }
+        public void Add(List<LoadObject> SoundEffectsList)
+        {
+            foreach (LoadObject song in SoundEffectsList)
+            {
+                LoadedSongs.Add(song.InternalName, SongManager.Load<Song>(song.FileName));
             }
         }
 
@@ -145,7 +260,7 @@ namespace SoticeMeNenpai
             LoadedSongs.Clear();
         }
 
-        public Texture2D this[String key]
+        public Song this[String key]
         {
             get { return LoadedSongs[key]; }
         }
@@ -172,6 +287,24 @@ namespace SoticeMeNenpai
             foreach (LoadObject SpriteFontt in SpriteFontsList)
             {
                 LoadedSpriteFonts.Add(SpriteFontt.InternalName, SpriteFontManager.Load<SpriteFont>(SpriteFontt.FileName));
+            }
+        }
+
+        public void Add(LoadObject spriteFont)
+        {
+            LoadedSpriteFonts.Add(spriteFont.InternalName, SpriteFontManager.Load<SpriteFont>(spriteFont.FileName));
+        }
+
+        public void Add(String InternalName, String FileName)
+        {
+            LoadedSpriteFonts.Add(InternalName, SpriteFontManager.Load<SpriteFont>(FileName));
+        }
+
+        public void Add(List<LoadObject> SpriteFontList)
+        {
+            foreach (LoadObject sfx in SpriteFontList)
+            {
+                LoadedSpriteFonts.Add(sfx.InternalName, SpriteFontManager.Load<SpriteFont>(sfx.FileName));
             }
         }
 

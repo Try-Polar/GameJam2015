@@ -32,15 +32,24 @@ namespace SoticeMeNenpai
     public class MasterLoader
     {
         List<LoadObject> Objects;
-        TextureLoader Textures;
-        SongLoader Songs;
-        SoundEffectLoader SoundFX;
-        SpriteFontLoader SpriteFonts;
-        public MasterLoader(){
+        TextureLoader _Textures;
+        SongLoader _Songs;
+        SoundEffectLoader _SoundFX;
+        SpriteFontLoader _SpriteFonts;
+        public TextureLoader Textures { get { return _Textures; } }
+        public SongLoader Songs { get { return _Songs; } }
+        public SoundEffectLoader SoundFX { get { return _SoundFX; } }
+        public SpriteFontLoader SpriteFonts { get { return _SpriteFonts; } }
+
+        public MasterLoader(Game game){
             Objects = new List<LoadObject>();
+            _Textures = new TextureLoader(game);
+            _Songs = new SongLoader(game);
+            _SoundFX = new SoundEffectLoader(game);
+            _SpriteFonts = new SpriteFontLoader(game);
         }
 
-        public MasterLoader(List<LoadObject> list)
+        public MasterLoader(Game game,List<LoadObject> list)
         {
             Objects = list;
         }
@@ -74,51 +83,51 @@ namespace SoticeMeNenpai
                 switch (obj.FileType)
                 {
                     case fileType.Texture2D:
-                        Textures.Add(obj);
+                        _Textures.Add(obj);
                         break;
                     case fileType.Song:
-                        Songs.Add(obj);
+                        _Songs.Add(obj);
                         break;
                     case fileType.SoundEffect:
-                        SoundFX.Add(obj);
+                        _SoundFX.Add(obj);
                         break;
                     case fileType.SpriteFont:
-                        SpriteFonts.Add(obj);
+                        _SpriteFonts.Add(obj);
                         break;
                     default:
                         //Skip, we dont have a loader for it
                         break;
                 }
             }
-            Textures.load();
-            Songs.load();
-            SoundFX.load();
-            SpriteFonts.load();
+            _Textures.load();
+            _Songs.load();
+            _SoundFX.load();
+            _SpriteFonts.load();
         }
 
         public void unload()
         {
-            Textures.unload();
-            Songs.unload();
-            SoundFX.unload();
-            SpriteFonts.unload();
+            _Textures.unload();
+            _Songs.unload();
+            _SoundFX.unload();
+            _SpriteFonts.unload();
         }
     }
 
-    public class TextureLoader : Microsoft.Xna.Framework.Game, ILoader
+    public class TextureLoader : ILoader
     {
-        List<LoadObject> TexturesList;
-        Dictionary<String, Texture2D> LoadedTextures;
+        List<LoadObject> TexturesList = new List<LoadObject>();
+        Dictionary<String, Texture2D> LoadedTextures = new Dictionary<string,Texture2D>();
         ContentManager Texture2DManager;
 
-        public TextureLoader()
+        public TextureLoader(Game game)
         {
-            Texture2DManager = new ContentManager(Services,"Textures");
+            Texture2DManager = new ContentManager(game.Services, "Content");
         }
 
-        public TextureLoader(String RootDirectory)
+        public TextureLoader(Game game,String RootDirectory)
         {
-            Texture2DManager = new ContentManager(Services, RootDirectory);
+            Texture2DManager = new ContentManager(game.Services, RootDirectory);
         }
 
         public void Add(LoadObject texture)
@@ -159,20 +168,20 @@ namespace SoticeMeNenpai
         }
     }
 
-    public class SoundEffectLoader : Microsoft.Xna.Framework.Game, ILoader
+    public class SoundEffectLoader : ILoader
     {
-        List<LoadObject> SoundEffectsList;
-        Dictionary<String, SoundEffect> LoadedSoundEffects;
+        List<LoadObject> SoundEffectsList = new List<LoadObject>();
+        Dictionary<String, SoundEffect> LoadedSoundEffects = new Dictionary<String, SoundEffect>();
         ContentManager SoundEffectManager;
 
-        public SoundEffectLoader()
+        public SoundEffectLoader(Game game)
         {
-            SoundEffectManager = new ContentManager(Services, "SoundEffects");
+            SoundEffectManager = new ContentManager(game.Services, "Content");
         }
 
-        public SoundEffectLoader(String RootDirectory)
+        public SoundEffectLoader(Game game,String RootDirectory)
         {
-            SoundEffectManager = new ContentManager(Services, RootDirectory);
+            SoundEffectManager = new ContentManager(game.Services, RootDirectory);
         }
 
         public void load()
@@ -213,20 +222,20 @@ namespace SoticeMeNenpai
         }
     }
 
-    public class SongLoader : Microsoft.Xna.Framework.Game, ILoader
+    public class SongLoader : ILoader
     {
-        List<LoadObject> SongList;
-        Dictionary<String, Song> LoadedSongs;
+        List<LoadObject> SongList = new List<LoadObject>();
+        Dictionary<String, Song> LoadedSongs = new Dictionary<string,Song>();
         ContentManager SongManager;
 
-        public SongLoader()
+        public SongLoader(Game game)
         {
-            SongManager = new ContentManager(Services, "Song");
+            SongManager = new ContentManager(game.Services, "Content");
         }
 
-        public SongLoader(String RootDirectory)
+        public SongLoader(Game game,String RootDirectory)
         {
-            SongManager = new ContentManager(Services, RootDirectory);
+            SongManager = new ContentManager(game.Services, RootDirectory);
         }
 
         public void load()
@@ -266,20 +275,20 @@ namespace SoticeMeNenpai
         }
     }
 
-    public class SpriteFontLoader : Microsoft.Xna.Framework.Game, ILoader
+    public class SpriteFontLoader : ILoader
     {
-        List<LoadObject> SpriteFontsList;
-        Dictionary<String, SpriteFont> LoadedSpriteFonts;
+        List<LoadObject> SpriteFontsList = new List<LoadObject>();
+        Dictionary<String, SpriteFont> LoadedSpriteFonts = new Dictionary<string, SpriteFont>();
         ContentManager SpriteFontManager;
 
-        public SpriteFontLoader()
+        public SpriteFontLoader(Game game)
         {
-            SpriteFontManager = new ContentManager(Services, "SpriteFonts");
+            SpriteFontManager = new ContentManager(game.Services, "Content");
         }
 
-        public SpriteFontLoader(String RootDirectory)
+        public SpriteFontLoader(Game game,String RootDirectory)
         {
-            SpriteFontManager = new ContentManager(Services, RootDirectory);
+            SpriteFontManager = new ContentManager(game.Services, RootDirectory);
         }
 
         public void load()

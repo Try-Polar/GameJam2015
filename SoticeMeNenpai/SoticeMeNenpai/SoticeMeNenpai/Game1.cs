@@ -20,8 +20,6 @@ namespace SoticeMeNenpai
         SpriteBatch spriteBatch;
         Sprite Player = new Sprite();
         Texture2D playerText;
-        Texture2D enemyText;
-        Texture2D enviromentText;
 
 
         Combat firstRound;
@@ -51,12 +49,9 @@ namespace SoticeMeNenpai
         protected override void LoadContent()
         {
             playerText = Content.Load<Texture2D>("PlayerTexture");
-            enemyText = Content.Load<Texture2D>("PlayerTexture");
-            enviromentText = Content.Load<Texture2D>("firstRoundEnviroment");
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            firstRound = new Combat(playerText, playerText, playerText);
+            firstRound = new Combat(playerText);
         }
 
         /// <summary>
@@ -78,7 +73,7 @@ namespace SoticeMeNenpai
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            firstRound.CombatUpdate(gameTime);
+
             
 
             base.Update(gameTime);

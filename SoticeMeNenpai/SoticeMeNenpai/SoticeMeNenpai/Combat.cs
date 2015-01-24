@@ -17,21 +17,15 @@ namespace SoticeMeNenpai
         Vector2 playerStartPos = new Vector2(700, 350);
         Sprite player = new Sprite();
 
-        Sprite enviroment = new Sprite();
-
+        Texture2D enemyText;
         Vector2 enemyStartPos = new Vector2(100, 50);
         Sprite enemy = new Sprite();
 
 
-        public Combat(Texture2D playerText, Texture2D enemyText, Texture2D enviromentText)
+        public Combat(Texture2D playerText)
         {
             player.SetTexture(playerText);
-            enviroment.SetTexture(enviromentText);
-            enemy.SetTexture(enemyText);
-
             player.SetPosition(playerStartPos);
-            enemy.SetPosition(enemyStartPos);
-            enviroment.SetPosition(new Vector2();
         }
 
         public Sprite getPlayer()
@@ -55,8 +49,6 @@ namespace SoticeMeNenpai
         public void CombatDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(player.GetTexture(), player.GetRectangle(), Color.White);
-            spriteBatch.Draw(enemy.GetTexture(), enemy.GetRectangle(), Color.White);
-            spriteBatch.Draw(enviroment.GetTexture(), enviroment.GetRectangle(), Color.White);
         }
     }
 }

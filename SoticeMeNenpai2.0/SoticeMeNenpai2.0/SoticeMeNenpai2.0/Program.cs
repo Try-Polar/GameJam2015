@@ -1,6 +1,6 @@
 using System;
 
-namespace SoticeMeNenpai
+namespace SoticeMeNenpai2._0
 {
 #if WINDOWS || XBOX
     static class Program

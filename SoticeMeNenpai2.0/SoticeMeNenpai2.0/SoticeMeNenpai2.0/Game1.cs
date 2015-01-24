@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace SoticeMeNenpai
+namespace SoticeMeNenpai2._0
 {
     /// <summary>
     /// This is the main type for your game
@@ -18,13 +18,6 @@ namespace SoticeMeNenpai
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Sprite Player = new Sprite();
-        Texture2D playerText;
-
-
-        Combat firstRound;
-
-
 
         public Game1()
         {
@@ -40,18 +33,21 @@ namespace SoticeMeNenpai
         /// </summary>
         protected override void Initialize()
         {
-            
+            // TODO: Add your initialization logic here
 
             base.Initialize();
         }
 
-
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
         protected override void LoadContent()
         {
-            playerText = Content.Load<Texture2D>("PlayerTexture");
+            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            firstRound = new Combat(playerText);
+            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -60,7 +56,7 @@ namespace SoticeMeNenpai
         /// </summary>
         protected override void UnloadContent()
         {
-            
+            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -74,7 +70,7 @@ namespace SoticeMeNenpai
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            
+            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -87,13 +83,7 @@ namespace SoticeMeNenpai
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-
-            if (firstRound != null)
-            firstRound.CombatDraw(gameTime, spriteBatch);
-
-            spriteBatch.End();
-            
+            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

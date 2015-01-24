@@ -1,8 +1,0 @@
-C:\Users\Elliot\Documents\GitHub\GameJam2015\SoticeMeNenpai\SoticeMeNenpai\SoticeMeNenpai\bin\x86\Debug\SoticeMeNenpai.exe
-C:\Users\Elliot\Documents\GitHub\GameJam2015\SoticeMeNenpai\SoticeMeNenpai\SoticeMeNenpai\bin\x86\Debug\SoticeMeNenpai.pdb
-C:\Users\Elliot\Documents\GitHub\GameJam2015\SoticeMeNenpai\SoticeMeNenpai\SoticeMeNenpai\obj\x86\Debug\SoticeMeNenpai.csprojResolveAssemblyReference.cache
-C:\Users\Elliot\Documents\GitHub\GameJam2015\SoticeMeNenpai\SoticeMeNenpai\SoticeMeNenpai\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Elliot\Documents\GitHub\GameJam2015\SoticeMeNenpai\SoticeMeNenpai\SoticeMeNenpai\obj\x86\Debug\SoticeMeNenpai.exe
-C:\Users\Elliot\Documents\GitHub\GameJam2015\SoticeMeNenpai\SoticeMeNenpai\SoticeMeNenpai\obj\x86\Debug\SoticeMeNenpai.pdb
-C:\Users\Elliot\Documents\GitHub\GameJam2015\SoticeMeNenpai\SoticeMeNenpai\SoticeMeNenpai\bin\x86\Debug\Content\PlayerTexture.xnb
-C:\Users\Elliot\Documents\GitHub\GameJam2015\SoticeMeNenpai\SoticeMeNenpai\SoticeMeNenpai\bin\x86\Debug\Content\firstRoundEnviroment.xnb
